@@ -8,7 +8,7 @@ from math import radians, cos, sin
 '''Ball Class'''
 
 
-class Ball:
+class SnakeBot:
     def __init__(self, parent_screen):
         self.dx = 1
         self.image = pygame.image.load("../assets/ball.png")
