@@ -35,7 +35,7 @@ Utilizando os seus conhecimento de Programação Orientada a Objetos desenvolva 
 ### Controles
 Jogue sozinho contra uma inteligência artificial. 
 | Action| |Keyboard|
-|--|--|--|--|
+|--|--|--
 | Up || W | 
 | Down || S |
 | Left || A | 
