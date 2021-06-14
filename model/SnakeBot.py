@@ -1,14 +1,11 @@
 import random
-import sys
 from math import sqrt
 
 import pygame
-from pygame import QUIT
 
 from control.constants import *
 
 size = SIZE_SNAKE
-
 
 '''Snake Class'''
 
@@ -16,7 +13,7 @@ size = SIZE_SNAKE
 class SnakeBot:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("../assets/ball.png")
+        self.image = pygame.image.load("../assets/bodyEnemy.png")
         self.direction = 'down'
         self.length = 1
         self.x = [random.randint(1, 15) * SIZE_SNAKE]
@@ -25,9 +22,9 @@ class SnakeBot:
         self.orientation_v = 1
 
     def walk(self):
-        for i in range(self.length-1, 0,  -1):
-            self.x[i] = self.x[i-1]
-            self.y[i] = self.y[i-1]
+        for i in range(self.length - 1, 0, -1):
+            self.x[i] = self.x[i - 1]
+            self.y[i] = self.y[i - 1]
         if self.direction == 'left':
             self.x[0] -= size
             self.orientation_h = -1
@@ -51,7 +48,7 @@ class SnakeBot:
         self.x.append(-1)
         self.y.append(-1)
 
-    def follow_apple(self, apple_x, apple_y):
+    def follow_apple(self, apple_x):
         if (self.x[0] > 700) and (self.y[0] > 532) and self.orientation_h == 1 and self.orientation_v == 1:
             self.direction = 'up'
 

@@ -12,7 +12,7 @@ size = SIZE_SNAKE
 class Apple:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("../assets/arthur_santos_apple.png")
+        self.image = pygame.image.load("../assets/apple.png")
         self.x = 120
         self.y = 120
 

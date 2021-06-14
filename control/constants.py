@@ -4,4 +4,4 @@ GAME = False
 CLICK = False
 SPEED = 32
 SIZE_SNAKE = 32
-FPS = 10
+FPS = 1/10

@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 
 import credits
 import game
@@ -21,7 +22,7 @@ background_color = (0, 0, 0)
 screen.fill(background_color)
 
 
-font = pygame.font.Font("../fonts/VT323-Regular.otf", 38)
+font = pygame.font.Font("../fonts/rockwell.otf", 38)
 text_play = font.render('PLAY', True, pygame.Color("White"))
 text_rect_play = text_play.get_rect()
 text_rect_play.center = (400, 270)
@@ -68,7 +69,7 @@ def main():
         screen.blit(text_credits, text_rect_credits)
         screen.blit(text_exit, text_rect_exit)
         pygame.display.update()
-        main_clock.tick(FPS)
+        sleep(FPS)
 
 
 if __name__ == '__main__':

@@ -1,14 +1,13 @@
-import sys
-import pygame
-from pygame.locals import *
-import time
 import random
-from control.constants import *
-from game_over import *
-from model.Snake import Snake
-from model.Apple import Apple
-from model.SnakeBot import SnakeBot
+import sys
+import time
 
+from pygame.locals import *
+
+from game_over import *
+from model.Apple import Apple
+from model.Snake import Snake
+from model.SnakeBot import SnakeBot
 
 '''Constants'''
 size = SIZE_SNAKE
@@ -38,7 +37,7 @@ def reset():
     snake.score = 0
 
 
-'''Colision'''
+'''Collision'''
 
 
 def is_collision(x1, y1, x2, y2):
@@ -63,8 +62,8 @@ def play():
     background()
     snake.walk()
     apple.draw()
-    font = pygame.font.Font("../fonts/VT323-Regular.otf", 30)
-    score_text = font.render("Score:" + str(snake.score), True, pygame.color.Color("White"))
+    font = pygame.font.Font("../fonts/rockwell.otf", 30)
+    score_text = font.render("Score: " + str(snake.score), True, pygame.color.Color("red"))
 
     # snake eating apple scenario
     for i in range(snake.length):
@@ -80,41 +79,40 @@ def play():
     # snake colliding with itself
     for i in range(3, snake.length):
         if is_collision(snake.x[0], snake.y[0], snake.x[i], snake.y[i]):
-            score = snake.score
-            show_game_over(score)
+            score_point = snake.score
+            show_game_over(score_point)
 
     # snake collide with walls
     if not (0 <= snake.x[0] <= SIZE[0] and 0 <= snake.y[0] <= SIZE[1]):
-        score = snake.score
-        show_game_over(score)
+        score_point = snake.score
+        show_game_over(score_point)
 
     # snake colliding with bot
     for i in range(snake_Bot.length):
-        for j in range(snake.length):
-            if is_collision(snake.x[j], snake.y[j], snake_Bot.x[i], snake_Bot.y[i]):
-                score = snake.score
-                show_game_over(score)
+        if is_collision(snake.x[0], snake.y[0], snake_Bot.x[i], snake_Bot.y[i]):
+            score_point = snake.score
+            show_game_over(score_point)
 
     # Snake Bot, start follow apple
-    snake_Bot.follow_apple(apple.x, apple.y)
+    snake_Bot.follow_apple(apple.x)
 
     # Snake Bot, check if eat apple
     if snake_Bot.collide_with(apple.x, apple.y):
         snake_Bot.increase_length()
         apple.move()
 
-    surface.blit(score_text, (500, 50))
+    surface.blit(score_text, (50, 50))
     pygame.display.update()
-    main_clock.tick(FPS)
+    time.sleep(FPS)
 
 
 '''Game Over'''
 
 
-def show_game_over(score):
+def show_game_over(score_text):
     set_click()
     reset()
-    game_over(score)
+    game_over(score_text)
 
 
 '''Run'''

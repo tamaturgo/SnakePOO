@@ -18,7 +18,7 @@ click = False
 def game_over(score_text):
     global click
     while not click:
-        font_2 = pygame.font.Font("../fonts/VT323-Regular.otf", 35)
+        font_2 = pygame.font.Font("../fonts/rockwell.otf", 35)
         text_2 = "Press Space to back Menu"
         text_3 = 'Score:' + str(score_text)
         text_2 = font_2.render(text_2, True, (250, 0, 0))
