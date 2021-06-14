@@ -85,7 +85,7 @@ def play():
             show_game_over(score)
 
     # snake collide with walls
-    if not (0 <= snake.x[0] <= 600 and 0 <= snake.y[0] <= 600):
+    if not (0 <= snake.x[0] <= SIZE[0] and 0 <= snake.y[0] <= SIZE[1]):
         score = snake.score
         show_game_over(score)
 
