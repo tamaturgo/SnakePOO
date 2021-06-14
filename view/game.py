@@ -61,7 +61,7 @@ def play():
     global count, aux, snake
     background()
     snake.walk()
-    apple.draw()
+    apple.draw_apple()
     font = pygame.font.Font("../fonts/rockwell.otf", 30)
     score_text = font.render("Score: " + str(snake.score), True, pygame.color.Color("red"))
 
@@ -70,7 +70,7 @@ def play():
         if is_collision(snake.x[i], snake.y[i], apple.x, apple.y):
             snake.score += 1
             snake.increase_length()
-            apple.move()
+            apple.spawn_apple()
             count += 1
             if count == aux:
                 count = 0
@@ -99,7 +99,7 @@ def play():
     # Snake Bot, check if eat apple
     if snake_Bot.collide_with(apple.x, apple.y):
         snake_Bot.increase_length()
-        apple.move()
+        apple.spawn_apple()
 
     surface.blit(score_text, (50, 50))
     pygame.display.update()

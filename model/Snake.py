@@ -10,6 +10,7 @@ size = SIZE_SNAKE
 
 class Snake(DrawInterface, MoveInterface):
     def __init__(self, parent_screen):
+        super().__init__()
         self.parent_screen = parent_screen
         self.image = pygame.image.load("../assets/body.png")
         self.direction = ''
