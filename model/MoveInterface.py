@@ -5,8 +5,14 @@ size = SIZE_SNAKE
 
 class MoveInterface:
 
-    def move_left(self):
+    def __init__(self):
+        self.y = None
+        self.x = None
+        self.length = None
         self.direction = 'left'
+
+    def move_left(self):
+        pass
 
     def move_right(self):
         self.direction = 'right'
@@ -32,3 +38,6 @@ class MoveInterface:
             self.y[0] += size
 
         self.draw()
+
+    def draw(self):
+        pass
