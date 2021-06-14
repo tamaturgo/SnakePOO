@@ -4,15 +4,16 @@ from math import sqrt
 import pygame
 
 from control.constants import *
+from model.Snake import Snake
 
 size = SIZE_SNAKE
 
 '''Snake Class'''
 
 
-class SnakeBot:
+class SnakeBot(Snake):
     def __init__(self, parent_screen):
-        self.parent_screen = parent_screen
+        super().__init__(parent_screen)
         self.image = pygame.image.load("../assets/bodyEnemy.png")
         self.direction = 'down'
         self.length = 1
@@ -20,33 +21,6 @@ class SnakeBot:
         self.y = [random.randint(1, 12) * SIZE_SNAKE]
         self.orientation_h = 1
         self.orientation_v = 1
-
-    def walk(self):
-        for i in range(self.length - 1, 0, -1):
-            self.x[i] = self.x[i - 1]
-            self.y[i] = self.y[i - 1]
-        if self.direction == 'left':
-            self.x[0] -= size
-            self.orientation_h = -1
-        if self.direction == 'right':
-            self.x[0] += size
-            self.orientation_h = 1
-        if self.direction == 'up':
-            self.y[0] -= size
-            self.orientation_v = -1
-        if self.direction == 'down':
-            self.y[0] += size
-            self.orientation_v = 1
-        self.draw()
-
-    def draw(self):
-        for i in range(self.length):
-            self.parent_screen.blit(self.image, (self.x[i], self.y[i]))
-
-    def increase_length(self):
-        self.length += 1
-        self.x.append(-1)
-        self.y.append(-1)
 
     def follow_apple(self, apple_x):
         if (self.x[0] > 700) and (self.y[0] > 532) and self.orientation_h == 1 and self.orientation_v == 1:
@@ -64,7 +38,7 @@ class SnakeBot:
         elif self.y[0] < 50:
             self.direction = 'left'
 
-        self.walk()
+        self.walk_bot()
 
     def collide_with(self, apple_x, apple_y):
         distance = sqrt(pow((self.x[0] - apple_x), 2) + pow(self.y[0] - apple_y, 2))
