@@ -1,65 +1,74 @@
+import random
+import sys
+from math import sqrt
 
 import pygame
+from pygame import QUIT
+
 from control.constants import *
-from random import *
-from math import radians, cos, sin
+
+size = SIZE_SNAKE
 
 
-'''Ball Class'''
+'''Snake Class'''
 
 
 class SnakeBot:
     def __init__(self, parent_screen):
-        self.dx = 1
-        self.image = pygame.image.load("../assets/ball.png")
         self.parent_screen = parent_screen
-        self.dy = 1
-        self.speed = 5
-        self.MIN_SPEED = 5
-        self.MAX_SPEED = 9
-        self.x = 300
-        self.y = 300
-        self.randomize_angle()
+        self.image = pygame.image.load("../assets/bot.png").convert()
+        self.direction = 'down'
+        self.length = 1
+        self.x = [random.randint(50, 400)]
+        self.y = [random.randint(50, 400)]
+        self.orientation_h = 1
+        self.orientation_v = 1
+
+    def walk(self):
+        for i in range(self.length-1, 0,  -1):
+            self.x[i] = self.x[i-1]
+            self.y[i] = self.y[i-1]
+        if self.direction == 'left':
+            self.x[0] -= size
+            self.orientation_h = -1
+        if self.direction == 'right':
+            self.x[0] += size
+            self.orientation_h = 1
+        if self.direction == 'up':
+            self.y[0] -= size
+            self.orientation_v = -1
+        if self.direction == 'down':
+            self.y[0] += size
+            self.orientation_v = 1
+        self.draw()
 
     def draw(self):
-        self.parent_screen.blit(self.image, (self.x, self.y))
+        for i in range(self.length):
+            self.parent_screen.blit(self.image, (self.x[i], self.y[i]))
 
-    def update(self):
-        self.movement()
-        self.collision_with_wall()
+    def increase_length(self):
+        self.length += 1
+        self.x.append(-1)
+        self.y.append(-1)
 
-    def movement(self):
-        # Ball movement
-        self.x += self.speed * self.dx
-        self.y += self.speed * self.dy
+    def follow_apple(self, apple_x, apple_y):
+        if (self.x[0] > 500) and (self.y[0] > 500) and self.orientation_h == 1 and self.orientation_v == 1:
+            self.direction = 'up'
 
-    def collision_with_wall(self):
-        # Ball collision with the wall
-        if self.x > 550:
-            if self.y < 550:
-                self.x = 550
-                self.dx *= -1
+        elif (apple_x - 10 <= self.x[0] <= apple_x + 10) and self.orientation_v == -1:
+            self.direction = 'down'
 
-        if self.x < 0:
-            if self.y < 520:
-                self.x = 0
-                self.dx *= -1
+        elif (self.x[0] < 40) and (self.y[0] < 40) and self.orientation_h == -1:
+            self.direction = 'down'
 
-        if self.y < 0:
-            self.y = 0
-            self.dy *= -1
+        elif self.y[0] > 500:
+            self.direction = 'right'
 
-        if self.y > 550:
-            self.y = 550
-            self.dy *= -1
+        elif self.y[0] < 40:
+            self.direction = 'left'
 
-    def randomize_angle(self):
-        random_angle = randint(30, 60)
-        angle = radians(random_angle)
-        self.dx = cos(angle)
-        self.dy = sin(angle)
+        self.walk()
 
-    def restart_ball(self):
-        self.randomize_angle()
-        self.dy = randint(-1, 1)
-        self.speed = self.MIN_SPEED
+    def collide_with(self, apple_x, apple_y):
+        distance = sqrt(pow((self.x[0] - apple_x), 2) + pow(self.y[0] - apple_y, 2))
+        return distance <= 25
