@@ -25,8 +25,7 @@ Utilizando os seus conhecimento de Programação Orientada a Objetos desenvolva 
 - código-fonte em PEP8 sem warnings ou typos
 
 
-### DESAFIO
-
+### Desafio
 
 - Acrescentar uma cobra bot ( ou mais cobras ) de cor diferente como adversária. A cobra bot deverá entrar no modelo de classes
 - Cobra Bot (https://kevinkparsons.com/snake-game.html)
