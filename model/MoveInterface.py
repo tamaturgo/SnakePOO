@@ -9,19 +9,23 @@ class MoveInterface:
         self.y = None
         self.x = None
         self.length = None
-        self.direction = 'left'
+        self.direction = ''
 
     def move_left(self):
-        pass
+        if not self.direction == 'right':
+            self.direction = 'left'
 
     def move_right(self):
-        self.direction = 'right'
+        if not self.direction == 'left':
+            self.direction = 'right'
 
     def move_up(self):
-        self.direction = 'up'
+        if not self.direction == 'down':
+            self.direction = 'up'
 
     def move_down(self):
-        self.direction = 'down'
+        if not self.direction == 'up':
+            self.direction = 'down'
 
     def walk(self):
         for i in range(self.length - 1, 0, -1):
