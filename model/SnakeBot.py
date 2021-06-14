@@ -3,12 +3,13 @@ import pygame
 from control.constants import *
 from random import *
 from math import radians, cos, sin
-
+from model.DrawInterface import *
+from model.MoveInterface import *
 
 '''Ball Class'''
 
 
-class SnakeBot:
+class SnakeBot(DrawInterface, MoveInterface):
     def __init__(self, parent_screen):
         self.dx = 1
         self.image = pygame.image.load("../assets/ball.png")
