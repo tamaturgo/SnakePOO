@@ -17,7 +17,7 @@ size = SIZE_SNAKE
 main_clock = pygame.time.Clock()
 pygame.init()
 
-pygame.display.set_caption("Snake Fire")
+pygame.display.set_caption("Snake")
 surface = pygame.display.set_mode(SIZE)
 cover = pygame.image.load("../assets/5.png")
 cover_rect = cover.get_rect()
