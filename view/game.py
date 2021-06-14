@@ -22,7 +22,7 @@ surface = pygame.display.set_mode(SIZE)
 cover = pygame.image.load("../assets/5.png")
 cover_rect = cover.get_rect()
 snake = Snake(surface)
-snake_Bot = [SnakeBot(surface)]
+snake_Bot = SnakeBot(surface)
 apple = Apple(surface)
 count = 0
 aux = 5
@@ -34,7 +34,7 @@ def reset():
     global snake, apple, snake_Bot
     snake = Snake(surface)
     apple = Apple(surface)
-    snake_Bot = [SnakeBot(surface)]
+    snake_Bot = SnakeBot(surface)
     snake.score = 0
 
 
@@ -76,7 +76,6 @@ def play():
             if count == aux:
                 count = 0
                 aux = random.randint(5, 10)
-                snake_Bot.append(SnakeBot(surface))
 
     # snake colliding with itself
     for i in range(3, snake.length):
@@ -89,17 +88,20 @@ def play():
         score = snake.score
         show_game_over(score)
 
-    # snake eating apple scenario
-    for i in range(snake.length):
-        for j in range(len(snake_Bot)):
-            if is_collision(snake.x[i], snake.y[i], snake_Bot[j].x, snake_Bot[j].y):
+    # snake colliding with bot
+    for i in range(snake_Bot.length):
+        for j in range(snake.length):
+            if is_collision(snake.x[j], snake.y[j], snake_Bot.x[i], snake_Bot.y[i]):
                 score = snake.score
                 show_game_over(score)
 
-    # drawing balls
-    for i in range(len(snake_Bot)):
-        snake_Bot[i].draw()
-        snake_Bot[i].update()
+    # Snake Bot, start follow apple
+    snake_Bot.follow_apple(apple.x, apple.y)
+
+    # Snake Bot, check if eat apple
+    if snake_Bot.collide_with(apple.x, apple.y):
+        snake_Bot.increase_length()
+        apple.move()
 
     surface.blit(score_text, (500, 50))
     pygame.display.update()
