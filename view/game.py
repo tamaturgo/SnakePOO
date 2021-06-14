@@ -63,7 +63,7 @@ def play():
     background()
     snake.walk()
     apple.draw()
-    font = pygame.font.Font("../fonts/VT323-Regular.ttf", 30)
+    font = pygame.font.Font("../fonts/VT323-Regular.otf", 30)
     score_text = font.render("Score:" + str(snake.score), True, pygame.color.Color("White"))
 
     # snake eating apple scenario
